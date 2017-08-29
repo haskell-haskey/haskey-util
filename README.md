@@ -1,20 +1,28 @@
-haskey
-======
+haskey-util
+===========
 
-[![Travis](https://travis-ci.org/haskell-haskey/haskey.svg?branch=master)](https://travis-ci.org/haskell-haskey/haskey)
-[![Coverage](https://coveralls.io/repos/github/haskell-haskey/haskey/badge.svg?branch=master)](https://coveralls.io/github/haskell-haskey/haskey?branch=master)
-[![Hackage](https://img.shields.io/hackage/v/haskey.svg?maxAge=2592000)](https://hackage.haskell.org/package/haskey)
-[![Stackage Nightly](http://stackage.org/package/haskey/badge/nightly)](http://stackage.org/nightly/package/haskey)
-[![Stackage LTS](http://stackage.org/package/haskey/badge/lts)](http://stackage.org/lts/package/haskey)
+[![Travis](https://travis-ci.org/haskell-haskey/haskey-util.svg?branch=master)](https://travis-ci.org/haskell-haskey/haskey-util)
 
-Haskey is a transactional, ACID compliant, embeddable, scalable key-value
-store written entirely in Haskell. It was developed as part of the [Summer of Haskell 2017][soh2017] project.
+Utility executable and library for inspecting [Haskey databases](https://github.com/haskell-haskey/haskey).
 
-  [soh2017]: https://summer.haskell.org/news/2017-05-24-accepted-projects.html
+How to use
+----------
 
-An introductory blog post on Haskey can be found [here][introduction].
+Build and execute using stack:
 
-  [introduction]: https://deliquus.com/posts/2017-08-24-introducing-haskey.html
+```
+git clone https://github.com/haskell-haskey/haskey-util
+stack build
+stack exec haskey-util -- -o /tmp/analysis.svg -h 250
+```
 
-_Disclaimer: Haskey is not production ready yet. We are still actively making
-changes to the public API and the internals, as well as the binary format._
+This should write an analysis diagram to `/tmp/analysis.svg`, which you can open in your favorite browser.
+
+Example
+-------
+
+Below is an example of an analysis.
+
+Click [here](.graphics/analysis-example.svg) to go directly to the image.
+
+![Example Analysis](.graphics/analysis-example.svg)
