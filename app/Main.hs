@@ -47,7 +47,7 @@ runDatabase :: Monad m
 runDatabase action = runFileStoreT action defFileStoreConfig
 
 genWrites :: IO [(ByteString, ByteString)]
-genWrites = replicateM 100 genPair
+genWrites = replicateM 10000 genPair
   where
     genPair = do
         key <- genKey
