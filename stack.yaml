@@ -3,7 +3,7 @@ packages:
 - '.'
 - location:
     git: https://github.com/haskell-haskey/haskey
-    commit: 0b8d77e
+    commit: 28af32f
   extra-dep: true
 extra-deps:
 - haskey-btree-0.1.0.0

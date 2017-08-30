@@ -21,7 +21,7 @@ import Data.BTree.Primitives (NodeId(..), PageId(..), nodeIdToPageId,
 import qualified Data.BTree.Impure as I
 
 import Database.Haskey.Alloc.Concurrent (ConcurrentDb(..), transactReadOnly)
-import Database.Haskey.Alloc.Concurrent.Environment (DirtyFree(..), getSValue)
+import Database.Haskey.Alloc.Concurrent.Environment (FreePage(..), getSValue)
 import Database.Haskey.Alloc.Concurrent.FreePages.Tree (FreeTree)
 import Database.Haskey.Alloc.Concurrent.Meta (ConcurrentMeta(..), CurrentMetaPage(..))
 import Database.Haskey.Alloc.Concurrent.Overflow (OverflowTree)
@@ -98,11 +98,11 @@ analyzeMeta ConcurrentMeta{..} = do
             mapM_ (\p -> modify' (& sawIndexFreePages %~ (>>= puncture p))) freePages
     analyzeOverflowTree concurrentMetaOverflowTree
 
-    traverse_ (\(DirtyFree p) -> modify' (& sawDataPages %~ (>>= puncture p))) $ getSValue concurrentMetaDataFreshUnusedPages
-    traverse_ (\(DirtyFree p) -> modify' (& sawDataFreePages %~ (>>= puncture p))) $ getSValue concurrentMetaDataFreshUnusedPages
+    traverse_ (\(FreePage p) -> modify' (& sawDataPages %~ (>>= puncture p))) $ getSValue concurrentMetaDataCachedFreePages
+    traverse_ (\(FreePage p) -> modify' (& sawDataFreePages %~ (>>= puncture p))) $ getSValue concurrentMetaDataCachedFreePages
 
-    traverse_ (\(DirtyFree p) -> modify' (& sawIndexPages %~ (>>= puncture p))) $ getSValue concurrentMetaIndexFreshUnusedPages
-    traverse_ (\(DirtyFree p) -> modify' (& sawIndexFreePages %~ (>>= puncture p))) $ getSValue concurrentMetaIndexFreshUnusedPages
+    traverse_ (\(FreePage p) -> modify' (& sawIndexPages %~ (>>= puncture p))) $ getSValue concurrentMetaIndexCachedFreePages
+    traverse_ (\(FreePage p) -> modify' (& sawIndexFreePages %~ (>>= puncture p))) $ getSValue concurrentMetaIndexCachedFreePages
 
 analyzeTree :: (AllocReaderM m, Key k, Value v)
             => Tree k v
